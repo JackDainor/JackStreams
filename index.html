@@ -4,6 +4,200 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>JackStreams</title>
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    opacity: 0;
+    animation: fadeInBody 1s ease forwards;
+  }
+
+  @keyframes fadeInBody {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ANIMACIÓN FLOTANTE SUAVE */
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* ANIMACIÓN DE ESCALA SUAVE */
+  @keyframes pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #007BFF;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    animation: pop 0.6s ease;
+  }
+
+  /* Dropdown */
+  .dropdown { position: relative; display: inline-block; }
+  .dropbtn {
+    background-color: transparent;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: 0.3s;
+  }
+  .dropbtn:hover {
+    transform: scale(1.1);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+    border-radius: 4px;
+    animation: pop 0.25s ease;
+  }
+
+
+  /* PRODUCT CARDS ANIMADAS */
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    animation: pop 0.4s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+
+
+  /* BOTÓN ANIMADO */
+  button.buy-btn {
+    background-color: #007BFF;
+    color: white;
+    transition: 0.3s;
+  }
+
+  button.buy-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+
+  /* MODAL ANIMADO */
+  .modal-content {
+    animation: pop 0.35s ease;
+  }
+
+
+/* Animación hover suave solo para las tarjetas */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* Sin animación en las imágenes de portada */
+.image-container img {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Estilos mejorados para la ventana de selección de divisa */
+#currencyModal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.45);
+  animation: fadeInBody .4s ease;
+}
+
+#currencyModal .modal-content {
+  background: #ffffff;
+  margin: 12% auto;
+  padding: 25px 30px;
+  border-radius: 14px;
+  width: 85%;
+  max-width: 420px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+  animation: pop .35s ease;
+}
+
+#currencyOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+#currencyOptions button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  background: #007BFF;
+  color: white;
+  cursor: pointer;
+  transition: .25s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+#currencyOptions button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+#closeModal {
+  font-size: 28px;
+  color: #555;
+  transition: 0.3s;
+}
+
+#closeModal:hover {
+  color: #000;
+  transform: scale(1.15);
+}
+
+</style>
+
+
 <style>
   * {
     box-sizing: border-box;
@@ -13,7 +207,7 @@
   }
   header {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 20px; background: #007BFF; color: white;
+    padding: 10px 20px; background: #0A1A2F; color: white;
     position: sticky; top: 0; z-index: 10;
   }
   h1 {
@@ -70,7 +264,7 @@
   
   h4 {
     text-align: center;
-    color: #007BFF;
+    color: #4A5568;
     margin-bottom: 15px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -118,8 +312,8 @@
   /* Product badge with name */
   .product-name {
     display: inline-block;
-    background-color: #007BFF;
-    color: white;
+    background-color: #FFFFFF;
+    color: #0A1A2F;
     font-weight: 700;
     letter-spacing: 1px;
     padding: 6px 14px;
@@ -162,7 +356,7 @@
   .info-text {
     padding: 5px 14px 3px 14px;
     font-size: 0.9rem;
-    color: #007BFF;
+    color: #718096;
     font-weight: 600;
     letter-spacing: 0.5px;
     min-height: 10px;
@@ -290,6 +484,65 @@
 </style>
 </head>
 <body>
+
+<div id="preloader">
+  <div class="loader"></div>
+</div>
+
+<style>
+  /* Pantalla completa */
+  #preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+  }
+
+  /* Loader circular minimalista */
+  .loader {
+    width: 55px;
+    height: 55px;
+    border: 5px solid #e0e0e0;
+    border-top-color: #007BFF;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+<script>
+  // Espera a que todo el contenido esté listo
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+
+    preloader.style.opacity = "0";
+    preloader.style.transition = "opacity 0.4s ease";
+
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 400);
+  });
+</script>
+
+
+<!-- OPTIMIZACIONES GENERALES -->
+<!-- 1. Cargar imágenes solo cuando aparecen en pantalla (lazy loading) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const imgs = document.querySelectorAll("img");
+    imgs.forEach(img => {
+      img.setAttribute("loading", "lazy");
+    });
+  });
+</script>
 
 <header>
   <h1>JackStreams</h1>
@@ -974,6 +1227,21 @@ window.onclick = function(event) {
 
 // Inicializar la ventana modal al cargar la página
 window.addEventListener('load', showCurrencyModal);
+</script>
+
+<script>
+// Añadimos un efecto suave al mostrar productos
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.05) + 's';
+  });
+});
+</script>
+
+<script>
+window.addEventListener("DOMContentLoaded",()=>{
+ document.querySelectorAll('.card').forEach((card,i)=>{ card.style.animationDelay=(i*0.05)+'s'; });
+});
 </script>
 
 
