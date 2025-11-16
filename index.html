@@ -197,13 +197,12 @@
 
 </style>
 
-
 <style>
   * {
     box-sizing: border-box;
   }
   body {
-    margin: 0; font-family: Arial, sans-serif; background: #f9f9f9;
+    margin: 0; font-family: Arial, sans-serif; background: #F5F7FA;
   }
   header {
     display: flex; justify-content: space-between; align-items: center;
@@ -484,8 +483,8 @@
 </style>
 </head>
 <body>
-
-<div id="preloader">
+  
+  <div id="preloader">
   <div class="loader"></div>
 </div>
 
@@ -533,6 +532,7 @@
 </script>
 
 
+
 <!-- OPTIMIZACIONES GENERALES -->
 <!-- 1. Cargar imágenes solo cuando aparecen en pantalla (lazy loading) -->
 <script>
@@ -557,12 +557,150 @@
   </div>
 </header>
 
+<!-- CARUSEL IMAGENES -->
+<div class="fade-carousel-container">
+  <div class="fade-carousel">
+
+    <img src="https://www.dropbox.com/scl/fi/ipqn384r3bg8au5vxpy5p/predator.png?rlkey=ijmjf16ye1cxhk4hyr601d52o&st=jmsxa8ii&dl=1" class="fade-slide active">
+    <img src="https://www.dropbox.com/scl/fi/c00zx9pkdkh9bgxy6pk82/stich.jpg?rlkey=vpykuu85uonwg20okgvnpe55z&st=yp56yl74&dl=1" class="fade-slide">
+    <img src="https://www.dropbox.com/scl/fi/5jln4nosuhm8e17hsw5hb/Spotify.png?rlkey=8m9wpahuxgt8fgtannmcjucrx&st=swh2vyej&dl=1" class="fade-slide">
+    <img src="https://www.dropbox.com/scl/fi/4r30hzfzr1d2x6iy9vmg4/Crunchyroll.png?rlkey=3j52f22ezlbnlevm9v87tuylv&st=3vjfnhkb&dl=1" class="fade-slide">
+    <img src="https://www.dropbox.com/scl/fi/mnzcepivpzp7htevqx7n0/CHATGPT.png?rlkey=5sgcl3x8nnkrkpda5cjt0ny5i&st=ewhoda9i&dl=1" class="fade-slide">
+
+  </div>
+
+  <!-- Indicadores -->
+  <div class="fade-indicators" id="fadeIndicators"></div>
+</div>
+
+<style>
+  .fade-carousel-container {
+  width: 95%;
+  max-width: 900px;
+  height: 250px;
+  margin: 25px auto;
+  position: relative;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+
+/* Contenedor de imágenes */
+.fade-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Imágenes */
+.fade-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+
+  border-radius: 14px;
+}
+
+/* Imagen activa */
+.fade-slide.active {
+  opacity: 1;
+}
+
+/* Indicadores estilo Netflix */
+.fade-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+.fade-indicators div {
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.fade-indicators .active {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .fade-carousel-container {
+    height: 180px;
+  }
+}
+
+</style>
+
+<script>
+  const slides = document.querySelectorAll(".fade-slide");
+  const indicatorContainer = document.getElementById("fadeIndicators");
+
+  let index = 0;
+  const total = slides.length;
+
+  // Crear indicadores
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement("div");
+    if (i === 0) dot.classList.add("active");
+
+    dot.addEventListener("click", () => {
+      changeSlide(i);
+    });
+
+    indicatorContainer.appendChild(dot);
+  }
+
+  const indicators = indicatorContainer.children;
+
+  function changeSlide(i) {
+    slides[index].classList.remove("active");
+    indicators[index].classList.remove("active");
+
+    index = i;
+
+    slides[index].classList.add("active");
+    indicators[index].classList.add("active");
+  }
+
+  function autoSlide() {
+    let next = index + 1;
+    if (next >= total) next = 0;
+
+    changeSlide(next);
+  }
+
+  // Cambio automático cada 2.5 segundos
+  setInterval(autoSlide, 2500);
+</script>
+
+
 <main>
   <h2>Servicio de Streaming</h2>
-  <h4>Streaming - Suscripciones - Chat GPT - Licencias</h4>
+<h4 data-text="Streaming - Suscripciones - Chat GPT - Licencias">
+    Streaming - Suscripciones - Chat GPT - Licencias
+</h4>
+
   <div class="search-container">
     <input type="search" id="searchInput" placeholder="Buscar..." aria-label="Search products" />
   </div>
+  
+<h4>Los precios se actualizan todos los días a las 23:59pm GMT-4. (hora boliviana) </h4>
 
   <div class="grid" id="productGrid">
     <!-- Products go here from JS -->
@@ -615,7 +753,7 @@
     // Product name, price (yellow), image URL, info text, isInStock (true/false)
     {
       name: "Netflix",
-      price: 3.50,
+      price: 4.36,
       image: "https://www.dropbox.com/scl/fi/40l8yl8877trmu1bat05l/Netflix-1.webp?rlkey=y16li0mxd474stvv4j6o2dqby&st=j4yu7bro&dl=1",
       info: "✓ 1 Perfil - 1 Mes",
       info1: "✓ 1 dispositivo",
@@ -625,7 +763,7 @@
     },
     {
       name: "CapCut Pro",
-      price: 2.30,
+      price: 2.60,
       image: "https://www.dropbox.com/scl/fi/2pw4t4u4x7fji6jum6kgw/images-1.jpeg?rlkey=h07l7rrn6v5kwgutm4vuus5xt&st=9kjyjqii&dl=1",
       info: "✓ PC - CEL - 1 Mes",
       info1: "✓ 3 dispositivos",
@@ -635,7 +773,7 @@
     },
     {
       name: "Spotify",
-      price: 2.99,
+      price: 3.51,
       image: "https://www.dropbox.com/scl/fi/xpsms24l108r733sigpkx/14152352518386.jpg?rlkey=4r1jhuya4lji74vryhwt3ku5z&st=rp5gugdq&dl=1",
       info: "✓  Garantía  - 1 Mes",
       info1: "✓ Correo",
@@ -665,7 +803,7 @@
     },
     {
     name: "Disney+", 
-    price: 1.30, 
+    price: 2.00, 
     image: "https://www.dropbox.com/scl/fi/vvz5xltdefldyidu3akba/Disney.webp?rlkey=g8xnh48ipq1d1c6b83upfvjg9&st=d76kjfa4&dl=1", 
     info: "✓ 1 Perfil - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -675,7 +813,7 @@
     },
     {
     name: "YouTube Premium", 
-    price: 1.70,
+    price: 1.95,
     image: "https://www.dropbox.com/scl/fi/duh5zx5fz6dm110t0tsz0/image-15.png?rlkey=im3lwj6kmnb1g91pn8cdnzjfm&st=nv6o2zx0&dl=1",
     info: "✓ 1 Mes",
     info1: "✓ Correo",
@@ -695,7 +833,7 @@
     },
     {
     name: "HBO MAX Platino", 
-    price: 1.72, 
+    price: 1.82, 
     image: "https://www.dropbox.com/scl/fi/t249hr6uiyk6smfxntz5i/690582.jpeg?rlkey=fzg0q9bjta0nslzi48ygilmaj&st=9u6b2vrs&dl=1",
     info: "✓ 1 Perfil - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -705,7 +843,7 @@
     },
     {
     name: "MICROSOFT 365", 
-    price: 6.30, 
+    price: 7.80, 
     image: "https://www.dropbox.com/scl/fi/l6n706t26gfgtu8a99u5k/17625556819573942463992156953746.jpg?rlkey=xpihhrk8iecyoquft4bqplc0k&st=7ti0u26k&dl=1",
     info: "✓ 1 año",
     info1: "✓ 15 dispositivos",
@@ -715,7 +853,7 @@
     },
     {
     name: "Spotify",
-    price: 2.99, 
+    price: 3.51, 
     image: "https://www.dropbox.com/scl/fi/xpsms24l108r733sigpkx/14152352518386.jpg?rlkey=4r1jhuya4lji74vryhwt3ku5z&st=rp5gugdq&dl=1",
     info: "✓  1 Mes",
     info1: "✓ correo",
@@ -725,23 +863,23 @@
     },
     {
     name: "CapCut Pro", 
-    price: 5.40, 
+    price: 6.50, 
     image: "https://www.dropbox.com/scl/fi/2pw4t4u4x7fji6jum6kgw/images-1.jpeg?rlkey=h07l7rrn6v5kwgutm4vuus5xt&st=9kjyjqii&dl=1",
     info: "✓ PC - CEL - 3 Mes",
     info1: "✓ 3 dispositivos",
     renewal: 112,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
+    stock: 0
     },
     {
     name: "Crunchyroll", 
-    price: 3.00, 
+    price: 3.67, 
     image: "https://www.dropbox.com/scl/fi/z7h7u0w0k63oqgmteckxv/untitled-design-30.png?rlkey=wg99fqyc53cwenloa97j1egvd&st=v4yzq62h&dl=1",
     info: "✓  Cuenta completa",
     info1: "",
     renewal: 113,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
+    stock: 0
     },
     {
     name: "Vix", 
@@ -755,7 +893,7 @@
     },
     {
     name: "Chat GPT", 
-    price: 2.99, 
+    price: 3.51, 
     image: "https://www.dropbox.com/scl/fi/q10zpdyw1slcbp8wlw2oz/Destaque-ChatGPT-1024x576.jpg?rlkey=ksnckwvbfgg4hrlhgv6ekk0yb&st=cxx68gtu&dl=1",
     info: "✓ Cuenta compartida - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -765,7 +903,7 @@
     },
     {
     name: "Gemini", 
-    price: 3.29, 
+    price: 3.90, 
     image: "https://www.dropbox.com/scl/fi/c6avg9fai3rm8u0ejozoh/Gemini-August-Release_SS.width-1300.jpg?rlkey=8yjpch8kc0uyinarmxhd3b00x&st=mgzmdn5z&dl=1",
     info: "✓ 1 Mes",
     info1: "✓ 2TB De almacenamiento",
@@ -775,7 +913,7 @@
     },
     {
     name: "Paramount", 
-    price: 1, 
+    price: 1.22, 
     image: "https://www.dropbox.com/scl/fi/383fz4uh6ufmy3jhmvofy/paramount-plus.png?rlkey=6qg9wbwjasfl15mphgytz3c8b&st=mintk4s6&dl=1",
     info: "✓ 1 Perfil - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -785,7 +923,7 @@
     },
     {
     name: "Prime Video", 
-    price: 1.99,
+    price: 2.24,
     image: "https://www.dropbox.com/scl/fi/3kvv0x4f4v02c04bmxjqu/primevideo-seo-logo.png?rlkey=q9lrm9et68ki5dt0aooqr6suk&st=8qbx6uk1&dl=1",
     info: "✓ 1 Perfil - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -801,11 +939,11 @@
     info1: "✓ 1 dispositivo",
     renewal: 119,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
+    stock: 0
     },
     {
     name: "Disney", 
-    price: 1.90,
+    price: 2.00,
     image: "https://www.dropbox.com/scl/fi/xqft1n1malmcekduny4ff/image002_8_d067e0e0.jpeg?rlkey=m41sc49hvprmjnixiq5ke1u7c&st=2oovzqvf&dl=1",
     info: "✓ 1 Perfil - 1 Mes",
     info1: "✓ 1 dispositivo",
@@ -1077,9 +1215,9 @@ var listaCompleta =
 <script>
     // Tipo de cambio con respecto al dolar
   const exchangeRates = {
-    'bs': 11.20,   // 1 USD = 13 BOB
+    'bs': 10.40,   // 1 USD = 13 BOB
     'usd': 1,   // 1 USD = 1 USD
-    'br': 5.70,    // 1 USD = 6 BRL
+    'br': 5.50,    // 1 USD = 6 BRL
     'usdt': 1   // 1 USDT = 1 USD
   };
 
@@ -1229,6 +1367,7 @@ window.onclick = function(event) {
 window.addEventListener('load', showCurrencyModal);
 </script>
 
+
 <script>
 // Añadimos un efecto suave al mostrar productos
 window.addEventListener("DOMContentLoaded", () => {
@@ -1244,10 +1383,445 @@ window.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 
+<!-- BOTÓN FLOTANTE PREMIUM -->
+<div class="combo-btn" id="comboBtn">
+  <img src="https://www.dropbox.com/scl/fi/vmk469jdyzqbrpy7em56i/combo.png?rlkey=l6kak2t7ta7csj9zmruvnigu8&st=b2lu0adm&dl=1" alt="combo" />
+</div>
+
+<!-- MODAL PREMIUM -->
+<div class="combo-modal" id="comboModal">
+  <div class="combo-content">
+
+    <img class="combo-header-img" src="https://www.dropbox.com/scl/fi/thetsxcibaldrsmf45rm5/combostreaming.jpg?rlkey=kfvivfkgslg79kl8na7alebex&st=pmufzun3&dl=1" alt="combo banner">
+
+    <h2 class="combo-title">🔥 Aprovecha los Mega Combos 🔥</h2>
+
+    <!-- OFERTAS -->
+    <div class="offer-box gold">
+      <img src="https://www.dropbox.com/scl/fi/hfrhc1kws4rmt3aiztx78/plataformas.png?rlkey=2h2m4geagwh1faibih0o2me4b&st=ae1fq1hq&dl=1" alt="">
+      <div>
+        <h3>Combo Oro</h3>
+        <p>2 plataformas — <strong>12% de descuento</strong></p>
+      </div>
+    </div>
+
+    <div class="offer-box platinum">
+      <img src="https://www.dropbox.com/scl/fi/xofok6fjcp5egv4feaqen/650_1200.jpeg?rlkey=np01zh51v4ij9yb0s7b1axtoq&st=v6v4osst&dl=1" alt="">
+      <div>
+        <h3>Combo Platino</h3>
+        <p>3 plataformas — <strong>15% de descuento</strong></p>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- TIEMPO LIMITADO -->
+    <h3 class="limited-title">🔥 Oferta por tiempo limitado 🔥</h3>
+    <p class="limited-desc">1 plataforma — <strong>5% de descuento</strong></p>
+
+    <!-- Contador -->
+    <div class="countdown" id="countdown">
+      <span id="days">25</span>d
+      <span id="hours">00</span>h
+      <span id="minutes">00</span>m
+      <span id="seconds">00</span>s
+    </div>
+
+    <button class="combo-close" id="comboClose">Cerrar</button>
+
+  </div>
+</div>
+<style>
+  /* BOTÓN FLOTANTE PREMIUM */
+.combo-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff0080, #ffbe00);
+  box-shadow: 0 0 20px rgba(255,0,100,0.6);
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: glowIn 0.8s ease-out;
+  z-index: 9999;
+}
+
+.combo-btn img {
+  width: 60px;
+  filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4));
+}
+
+@keyframes glowIn {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* MODAL PREMIUM */
+.combo-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+
+.combo-content {
+  width: 90%;
+  max-width: 380px;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  animation: modalShow 0.4s ease;
+  box-shadow: 0 0 25px rgba(255,0,100,0.4);
+}
+
+@keyframes modalShow {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Imagen superior del modal */
+.combo-header-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Título principal */
+.combo-title {
+  font-size: 1.5rem;
+  margin: 12px 0;
+  text-align: center;
+  color: #ff006a;
+  font-weight: bold;
+}
+
+/* CAJAS DE OFERTA */
+.offer-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.offer-box img {
+  width: 55px;
+  height: 55px;
+}
+
+.offer-box h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.offer-box p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Oro */
+.offer-box.gold {
+  background: linear-gradient(145deg, #ffe28a, #ffcf46);
+}
+
+/* Platino */
+.offer-box.platinum {
+  background: linear-gradient(145deg, #c4d7ff, #9ebeff);
+}
+
+/* Sección tiempo limitado */
+.limited-title {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ff002f;
+  margin-top: 5px;
+}
+
+.limited-desc {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* CONTADOR */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #ff006a;
+  font-weight: bold;
+}
+
+/* BOTÓN CERRAR */
+.combo-close {
+  width: 90%;
+  margin: 10px auto 18px;
+  display: block;
+  padding: 10px;
+
+  font-size: 1.1rem;
+  color: white;
+  background: linear-gradient(135deg, #ff006a, #ffbe00);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.combo-close:hover {
+  opacity: 0.9;
+}
+
+</style>
+<script>
+  const comboBtn = document.getElementById("comboBtn");
+  const comboModal = document.getElementById("comboModal");
+  const comboClose = document.getElementById("comboClose");
+
+  comboBtn.onclick = () => comboModal.style.display = "flex";
+  comboClose.onclick = () => comboModal.style.display = "none";
+  comboModal.onclick = e => { if (e.target === comboModal) comboModal.style.display = "none"; };
+
+
+  /* ================================
+        COUNTDOWN PERSISTENTE
+     ================================ */
+
+  // Revisa si existe una fecha final guardada
+  let savedEndDate = localStorage.getItem("comboEndDate");
+
+  // Si NO existe, crea una nueva fecha final (25 días desde ahora)
+  if (!savedEndDate) {
+    let newEnd = new Date();
+    newEnd.setDate(newEnd.getDate() + 25);
+    savedEndDate = newEnd.getTime();
+
+    // Guardar en localStorage (no volverá a reiniciarse)
+    localStorage.setItem("comboEndDate", savedEndDate);
+  }
+
+  const target = parseInt(savedEndDate);
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = "Finalizado";
+      return;
+    }
+
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((diff / (1000 * 60)) % 60);
+    let seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+  }
+
+  setInterval(updateCountdown, 1000);
+
+</script>
+
+
+<footer class="footer">
+
+  <!-- TÍTULO: Marca + descripción -->
+  <div class="footer-top">
+    <h3 class="footer-brand">JackStreams</h3>
+    <p class="footer-desc">Streaming • Suscripciones • Licencias</p>
+  </div>
+
+  <!-- CUERPO: Contactos izquierda / Redes derecha -->
+  <div class="footer-middle">
+
+    <!-- Contacto (izquierda) -->
+    <div class="footer-left">
+      <h4>Contacto</h4>
+      <p>WhatsApp: +55 11 96601-9490</p>
+      <p>Email: soporte@jackstreams.com</p>
+    </div>
+
+    <!-- Redes sociales (derecha) -->
+    <div class="footer-right">
+      <h4>Redes Sociales</h4>
+      <div class="social-icons">
+        <a href="https://wa.me/5511966019490" target="_blank"><i class="icon icon-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@jackstreams_?_r=1&_t=ZS-91QTUhlIj1Z" target="_blank"><i class="icon icon-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="icon icon-facebook"></i></a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Derechos reservados (abajo, centrado) -->
+  <div class="footer-bottom">
+    <p>© 2025 JackStreams — Todos los derechos reservados</p>
+  </div>
+
+</footer>
+
+<style>
+
+
+/* Footer */
+.footer {
+  background: #0A1A2F;
+  color: white;
+  padding: 30px 20px 15px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* PARTE SUPERIOR */
+.footer-top {
+  margin-bottom: 20px;
+}
+
+.footer-brand {
+  font-size: 1.7rem;
+  color: #4ea8ff;
+  margin-bottom: 4px;
+}
+
+.footer-desc {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+/* PARTE MEDIA (contacto izquierda / redes derecha) */
+.footer-middle {
+  max-width: 500px;  /* REDUCIDO PARA QUITAR ESPACIOS GRANDES */
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+/* COLUMNA IZQUIERDA / DERECHA */
+.footer-left,
+.footer-right {
+  width: 48%;
+}
+
+.footer-left h4,
+.footer-right h4 {
+  color: #4ea8ff;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.footer-left p {
+  text-align: center;
+  color: #cbd5e1;
+  margin: 3px 0;
+  font-size: 0.9rem;
+}
+
+.footer-right p {
+  text-align: start;
+}
+
+/* Redes sociales */
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+  margin-right: 75px;
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  mask-size: cover;
+  background-color: #4ea8ff;
+  transition: .3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.15);
+  background-color: white;
+}
+
+/* Iconos SVG */
+.icon-whatsapp { mask-image: url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg'); }
+.icon-tiktok { mask-image: url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg'); }
+.icon-facebook { mask-image: url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg'); }
+
+
+/* DERECHOS RESERVADOS */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 10px;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: #9eb2c2;
+}
+
+/* ============================
+      MODO MÓVIL MEJORADO
+   ============================ */
+@media (max-width: 600px) {
+
+  .footer-middle {
+    flex-direction: column;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    width: 100%;
+  }
+
+  .footer-left h4,
+  .footer-right h4 {
+    text-align: center;
+  }
+
+  .footer-left p {
+    text-align: center;
+  }
+
+  .footer-right p {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+    margin-left: 75px;
+  }
+}
+
+</style>
 
 </body>
 
-
-
 </html>
-
