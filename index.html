@@ -4,521 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>JackStreams</title>
-
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    opacity: 0;
-    animation: fadeInBody 1s ease forwards;
-  }
-
-  @keyframes fadeInBody {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* ANIMACIÓN FLOTANTE SUAVE */
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-  }
-
-  /* ANIMACIÓN DE ESCALA SUAVE */
-  @keyframes pop {
-    0% { transform: scale(0.9); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #007BFF;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    animation: pop 0.6s ease;
-  }
-
-  /* Dropdown */
-  .dropdown { position: relative; display: inline-block; }
-  .dropbtn {
-    background-color: transparent;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    padding: 8px 12px;
-    transition: 0.3s;
-  }
-  .dropbtn:hover {
-    transform: scale(1.1);
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-    z-index: 100;
-    border-radius: 4px;
-    animation: pop 0.25s ease;
-  }
-
-
-  /* PRODUCT CARDS ANIMADAS */
-  .card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    animation: pop 0.4s ease;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  }
-
-
-
-  /* BOTÓN ANIMADO */
-  button.buy-btn {
-    background-color: #007BFF;
-    color: white;
-    transition: 0.3s;
-  }
-
-  button.buy-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-
-  /* MODAL ANIMADO */
-  .modal-content {
-    animation: pop 0.35s ease;
-  }
-
-
-/* Animación hover suave solo para las tarjetas */
-.card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-}
-
-/* Sin animación en las imágenes de portada */
-.image-container img {
-  transition: none !important;
-  animation: none !important;
-}
-
-/* Estilos mejorados para la ventana de selección de divisa */
-#currencyModal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(4px);
-  background: rgba(0,0,0,0.45);
-  animation: fadeInBody .4s ease;
-}
-
-#currencyModal .modal-content {
-  background: #ffffff;
-  margin: 12% auto;
-  padding: 25px 30px;
-  border-radius: 14px;
-  width: 85%;
-  max-width: 420px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
-  animation: pop .35s ease;
-}
-
-#currencyOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 18px;
-  text-align: center;
-}
-
-#currencyOptions button {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  font-weight: 700;
-  background: #007BFF;
-  color: white;
-  cursor: pointer;
-  transition: .25s ease;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-}
-
-#currencyOptions button:hover {
-  background: #0056b3;
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-#closeModal {
-  font-size: 28px;
-  color: #555;
-  transition: 0.3s;
-}
-
-#closeModal:hover {
-  color: #000;
-  transform: scale(1.15);
-}
-
-</style>
-
-<style>
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; font-family: Arial, sans-serif; background: #F5F7FA;
-  }
-  header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 20px; background: #0A1A2F; color: white;
-    position: sticky; top: 0; z-index: 10;
-  }
-  h1 {
-    margin: 0; font-size: 1.5rem;
-  }
-  /* Dropdown */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  .dropbtn {
-    background-color: transparent;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    padding: 8px 12px;
-  }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-    z-index: 100;
-    border-radius: 4px;
-  }
-  .dropdown-content a {
-    color: #333;
-    padding: 10px 14px;
-    text-decoration: none;
-    display: block;
-    font-size: 0.95rem;
-  }
-  .dropdown-content a:hover {
-    background-color: #f0f0f0;
-  }
-  .dropdown.show .dropdown-content {
-    display: block;
-  }
-  main {
-    max-width: 1200px;
-    margin: 20px auto 100px;
-    padding: 0 10px;
-  }
-  h2 {
-    text-align: center;
-    color: #007BFF;
-    margin-bottom: 15px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-  }
-  
-  h4 {
-    text-align: center;
-    color: #4A5568;
-    margin-bottom: 15px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-  }
-  .search-container {
-    text-align: center;
-    margin-bottom: 25px;
-    position: sticky;
-    top: 54px;
-    z-index: 9;
-    
-  }
-  input[type="search"] {
-    width: 100%;
-    max-width: 320px;
-    padding: 10px 35px 10px 12px;
-    font-size: 1rem;
-    border: 2px solid #007BFF;
-    border-radius: 25px;
-    background: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23007BFF' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><circle cx='11' cy='11' r='7' /><line x1='16.5' y1='16.5' x2='21' y2='21'/></svg>") right 10px center no-repeat;
-    background-size: 18px 18px;
-    background-color: #FFFFFF;
-  }
-  /* Grid container */
-  .grid {
-    display: grid;
-    
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media(max-width: 768px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  /* Each product card */
-  .card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  /* Product badge with name */
-  .product-name {
-    display: inline-block;
-    background-color: #FFFFFF;
-    color: #0A1A2F;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    border-radius: 100px 100px 100px 100px / 100px 100px 0 0;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0 auto;
-    width: fit-content;
-    position: relative;
-    top: 10px;
-    z-index: 2;
-    box-shadow: 0 2px 6px rgb(0 123 255 / 0.4);
-  }
-  /* Yellow price tag top-left */
-  .price-tag {
-    position: absolute;
-    top: 36px;
-    left: 8px;
-    background: #ffeb3b;
-    color: #333;
-    font-weight: 600;
-    padding: 4px 8px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    z-index: 3;
-  }
-  /* Image container */
-  .image-container {
-    margin-top: 10px;
-    height: 100px;
-    text-align: center;
-  }
-  .image-container img {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    border-radius: 8px 8px 8px 8px;
-  }
-  /* Info text */
-  .info-text {
-    padding: 5px 14px 3px 14px;
-    font-size: 0.9rem;
-    color: #718096;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    min-height: 10px;
-  }
-  /* Smaller text */
-  .sub-info {
-    font-size: 0.8rem;
-    color: #666;
-    padding: 0 14px 5px 14px;
-    min-height: 30px;
-    font-weight: 400;
-  }
-  /* Renewal price (green) */
-  .renewal {
-    color: #28a745;
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding-left: 14px;
-    min-height: 20px;
-  }
-  /* Button area */
-  .btn-container {
-    padding: 10px 14px;
-    margin-top: auto;
-  }
-  /* Buy buttons */
-  button.buy-btn, button.disabled-btn {
-    width: 100%;
-    padding: 12px 0;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    text-transform: uppercase;
-  }
-  
-  botonnetflix, button.disabled-btn {
-    background-color: red;
-    color: black;
-    padding: 12px 0;
-    width: 100%;
-    border: none;
-  }
-  
-  button.buy-btn {
-    background-color: #007BFF;
-    color: white;
-    transition: background-color 0.3s ease;
-  }
-  button.buy-btn:hover {
-    background-color: #0056b3;
-  }
-  button.disabled-btn {
-    background-color: #dc3545;
-    color: white;
-    cursor: not-allowed;
-  }
-
-  /* Modal styles */
-  .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 999; 
-    left: 0; top: 0; 
-    width: 100%; height: 100%;
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.5);
-  }
-  .modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px 30px;
-    border-radius: 8px;
-    max-width: 400px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    position: relative;
-  }
-  .modal-content h3 {
-    margin-top: 0;
-    color: #007BFF;
-  }
-  .close {
-    color: #aaa;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .close:hover {
-    color: #000;
-  }
-  form label {
-    display: block;
-    margin-top: 15px;
-    font-weight: 600;
-    color: #333;
-    font-size: 0.95rem;
-  }
-  form input, form select {
-    width: 100%;
-    padding: 8px 10px;
-    margin-top: 6px;
-    border: 1.5px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  form button[type="submit"] {
-    margin-top: 20px;
-    background-color: #007BFF;
-    border: none;
-    color: white;
-    font-weight: 700;
-    padding: 12px;
-    width: 100%;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  form button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   
   <div id="preloader">
   <div class="loader"></div>
 </div>
-
-<style>
-  /* Pantalla completa */
-  #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5000;
-  }
-
-  /* Loader circular minimalista */
-  .loader {
-    width: 55px;
-    height: 55px;
-    border: 5px solid #e0e0e0;
-    border-top-color: #007BFF;
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
-<script>
-  // Espera a que todo el contenido esté listo
+<!--Carga loading -->
+  <script>
+      // Espera a que todoel contenido esté listo
   window.addEventListener("load", () => {
     const preloader = document.getElementById("preloader");
 
@@ -529,21 +24,20 @@
       preloader.style.display = "none";
     }, 400);
   });
-</script>
-
-
-
-<!-- OPTIMIZACIONES GENERALES -->
-<!-- 1. Cargar imágenes solo cuando aparecen en pantalla (lazy loading) -->
-<script>
+  /*
+  <!-- 1. Cargar imágenes solo cuando aparecen en pantalla (lazy loading) -->
+*/
   document.addEventListener("DOMContentLoaded", () => {
     const imgs = document.querySelectorAll("img");
     imgs.forEach(img => {
       img.setAttribute("loading", "lazy");
     });
   });
-</script>
-
+  
+  
+  
+  </script>
+  
 <header>
   <h1>JackStreams</h1>
   <div class="dropdown" id="dropdownMenu">
@@ -562,92 +56,19 @@
   <div class="fade-carousel">
 
     <img src="https://www.dropbox.com/scl/fi/ipqn384r3bg8au5vxpy5p/predator.png?rlkey=ijmjf16ye1cxhk4hyr601d52o&st=jmsxa8ii&dl=1" class="fade-slide active">
-    <img src="https://www.dropbox.com/scl/fi/c00zx9pkdkh9bgxy6pk82/stich.jpg?rlkey=vpykuu85uonwg20okgvnpe55z&st=yp56yl74&dl=1" class="fade-slide">
+    <img src="https://www.dropbox.com/scl/fi/dxl4mcf9sjuddmh8o730k/zootopia-2.png?rlkey=b7hzjdwcbh7sen9wtyoo35a4f&st=43yyvjfx&dl=1" class="fade-slide">
     <img src="https://www.dropbox.com/scl/fi/5jln4nosuhm8e17hsw5hb/Spotify.png?rlkey=8m9wpahuxgt8fgtannmcjucrx&st=swh2vyej&dl=1" class="fade-slide">
     <img src="https://www.dropbox.com/scl/fi/4r30hzfzr1d2x6iy9vmg4/Crunchyroll.png?rlkey=3j52f22ezlbnlevm9v87tuylv&st=3vjfnhkb&dl=1" class="fade-slide">
     <img src="https://www.dropbox.com/scl/fi/mnzcepivpzp7htevqx7n0/CHATGPT.png?rlkey=5sgcl3x8nnkrkpda5cjt0ny5i&st=ewhoda9i&dl=1" class="fade-slide">
 
   </div>
 
-  <!-- Indicadores -->
+  <!-- Indicadores Carrusel de imágenes -->
   <div class="fade-indicators" id="fadeIndicators"></div>
 </div>
 
-<style>
-  .fade-carousel-container {
-  width: 95%;
-  max-width: 900px;
-  height: 250px;
-  margin: 25px auto;
-  position: relative;
-
-  border-radius: 14px;
-  overflow: hidden;
-
-  box-shadow: 0 0 25px rgba(0,0,0,0.4);
-}
-
-/* Contenedor de imágenes */
-.fade-carousel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* Imágenes */
-.fade-slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-
-  border-radius: 14px;
-}
-
-/* Imagen activa */
-.fade-slide.active {
-  opacity: 1;
-}
-
-/* Indicadores estilo Netflix */
-.fade-indicators {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-}
-
-.fade-indicators div {
-  width: 12px;
-  height: 12px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.fade-indicators .active {
-  background: #fff;
-  transform: scale(1.3);
-}
-
-/* Móvil */
-@media (max-width: 600px) {
-  .fade-carousel-container {
-    height: 180px;
-  }
-}
-
-</style>
-
 <script>
+/* carrusel de imágenes*/
   const slides = document.querySelectorAll(".fade-slide");
   const indicatorContainer = document.getElementById("fadeIndicators");
 
@@ -702,6 +123,14 @@
   
 <h4>Los precios se actualizan todos los días a las 23:59pm GMT-4. (hora boliviana) </h4>
 
+<!-- PAGINACIÓN -->
+<div class="pagination-container">
+  <button id="prevPage" class="pag-btn">&lt;</button>
+  <span id="pageInfo">1 / 1</span>
+  <button id="nextPage" class="pag-btn">&gt;</button>
+</div>
+
+
   <div class="grid" id="productGrid">
     <!-- Products go here from JS -->
   </div>
@@ -733,9 +162,9 @@
       <select id="paymentMethod" name="paymentMethod" required>
         <option value="" disabled selected>Selecciona el metodo de pago</option>
         <option value="Yape Bolivia">Yape Bolivia</option>
-        <option value="Altoke">Altoke</option>
-        <option value="Transferencia bancaria">Transferencia bancaria</option>
-        <option value="Pix">Pix (QR 5 minutos)</option>
+        <option value="Altoke">Altoke (Bolivia)</option>
+        <option value="Transferencia bancaria">Transferencia bancaria (Bo)</option>
+        <option value="Pix">Pix (QR 5 minutos br)</option>
         <option value="Transferencia bancaria ACH">Transferencia bancaria ACH</option>
         <option value="Binance">Binance</option>
         <option value="Airtm">Airtm</option>
@@ -747,451 +176,12 @@
   </div>
 </div>
 
-<script>
-  // Products data - 20 products
-  const products = [
-    // Product name, price (yellow), image URL, info text, isInStock (true/false)
-    {
-      name: "Netflix",
-      price: 4.36,
-      image: "https://www.dropbox.com/scl/fi/40l8yl8877trmu1bat05l/Netflix-1.webp?rlkey=y16li0mxd474stvv4j6o2dqby&st=j4yu7bro&dl=1",
-      info: "✓ 1 Perfil - 1 Mes",
-      info1: "✓ 1 dispositivo",
-      renewal: 101,
-      bandera: "🇧🇴🇧🇷🇺🇸+",
-      stock: 1
-    },
-    {
-      name: "CapCut",
-      price: 2.34,
-      image: "https://www.dropbox.com/scl/fi/2pw4t4u4x7fji6jum6kgw/images-1.jpeg?rlkey=h07l7rrn6v5kwgutm4vuus5xt&st=9kjyjqii&dl=1",
-      info: "✓ PC - CEL - 1 Mes",
-      info1: "✓ 1 dispositivo",
-      renewal: 102,
-      bandera: "🇧🇴🇧🇷🇺🇸+",
-      stock: 1
-    },
-    {
-      name: "Spotify",
-      price: 3.51,
-      image: "https://www.dropbox.com/scl/fi/xpsms24l108r733sigpkx/14152352518386.jpg?rlkey=4r1jhuya4lji74vryhwt3ku5z&st=rp5gugdq&dl=1",
-      info: "✓  Garantía  - 1 Mes",
-      info1: "✓ Correo",
-      renewal: 103,
-      bandera: "🇧🇴🇧🇷🇺🇸+",
-      stock: 1
-    },
-    {
-      name: "HBO Max Standard",
-      price: 1.30,
-      image: "https://www.dropbox.com/scl/fi/t249hr6uiyk6smfxntz5i/690582.jpeg?rlkey=fzg0q9bjta0nslzi48ygilmaj&st=9u6b2vrs&dl=1",
-      info: "✓ 1 Perfil - 1 Mes",
-      info1: "✓ 1 dispositivo",
-      renewal: 104,
-      bandera: "🇧🇴🇧🇷🇺🇸+",
-      stock: 1
-    },
-    // Add 16 more products with similar structure
-    {name: "Netflix - Disney+", 
-    price: 5.50, 
-    image: "https://www.dropbox.com/scl/fi/3nin57858jxljfvlub07c/NetDis.jpeg?rlkey=li0ykd69n7y86qvswp158dsxc&st=43eotkro&dl=1", 
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 105,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 0
-    },
-    {
-    name: "Disney+", 
-    price: 2.00, 
-    image: "https://www.dropbox.com/scl/fi/vvz5xltdefldyidu3akba/Disney.webp?rlkey=g8xnh48ipq1d1c6b83upfvjg9&st=d76kjfa4&dl=1", 
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 106,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "YouTube Premium", 
-    price: 1.95,
-    image: "https://www.dropbox.com/scl/fi/duh5zx5fz6dm110t0tsz0/image-15.png?rlkey=im3lwj6kmnb1g91pn8cdnzjfm&st=nv6o2zx0&dl=1",
-    info: "✓ 1 Mes",
-    info1: "✓ Correo",
-    renewal: 107,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Crunchyroll", 
-    price: 1, 
-    image: "https://www.dropbox.com/scl/fi/z7h7u0w0k63oqgmteckxv/untitled-design-30.png?rlkey=wg99fqyc53cwenloa97j1egvd&st=v4yzq62h&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 108,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "HBO MAX Platino", 
-    price: 1.82, 
-    image: "https://www.dropbox.com/scl/fi/t249hr6uiyk6smfxntz5i/690582.jpeg?rlkey=fzg0q9bjta0nslzi48ygilmaj&st=9u6b2vrs&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 109,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "MICROSOFT 365", 
-    price: 7.80, 
-    image: "https://www.dropbox.com/scl/fi/l6n706t26gfgtu8a99u5k/17625556819573942463992156953746.jpg?rlkey=xpihhrk8iecyoquft4bqplc0k&st=7ti0u26k&dl=1",
-    info: "✓ 1 año",
-    info1: "✓ 15 dispositivos",
-    renewal: 110,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Spotify",
-    price: 3.51, 
-    image: "https://www.dropbox.com/scl/fi/xpsms24l108r733sigpkx/14152352518386.jpg?rlkey=4r1jhuya4lji74vryhwt3ku5z&st=rp5gugdq&dl=1",
-    info: "✓  1 Mes",
-    info1: "✓ correo",
-    renewal: 111,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "CapCut Pro", 
-    price: 3.80, 
-    image: "https://www.dropbox.com/scl/fi/2pw4t4u4x7fji6jum6kgw/images-1.jpeg?rlkey=h07l7rrn6v5kwgutm4vuus5xt&st=9kjyjqii&dl=1",
-    info: "✓ PC - CEL",
-    info1: "✓ Cuenta completa",
-    renewal: 112,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Crunchyroll", 
-    price: 3.67, 
-    image: "https://www.dropbox.com/scl/fi/z7h7u0w0k63oqgmteckxv/untitled-design-30.png?rlkey=wg99fqyc53cwenloa97j1egvd&st=v4yzq62h&dl=1",
-    info: "✓  Cuenta completa",
-    info1: "",
-    renewal: 113,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 0
-    },
-    {
-    name: "Vix", 
-    price: 1, 
-    image: "https://www.dropbox.com/scl/fi/t59awss2h8cwevan5x98o/678552.jpeg?rlkey=kb9onxyyr5k416v5e2rrjqku0&st=iwql448j&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 114,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Chat GPT", 
-    price: 3.51, 
-    image: "https://www.dropbox.com/scl/fi/q10zpdyw1slcbp8wlw2oz/Destaque-ChatGPT-1024x576.jpg?rlkey=ksnckwvbfgg4hrlhgv6ekk0yb&st=cxx68gtu&dl=1",
-    info: "✓ Cuenta compartida - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 115,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Gemini", 
-    price: 3.90, 
-    image: "https://www.dropbox.com/scl/fi/c6avg9fai3rm8u0ejozoh/Gemini-August-Release_SS.width-1300.jpg?rlkey=8yjpch8kc0uyinarmxhd3b00x&st=mgzmdn5z&dl=1",
-    info: "✓ 1 Mes",
-    info1: "✓ 2TB De almacenamiento",
-    renewal: 116,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Paramount", 
-    price: 1.22, 
-    image: "https://www.dropbox.com/scl/fi/383fz4uh6ufmy3jhmvofy/paramount-plus.png?rlkey=6qg9wbwjasfl15mphgytz3c8b&st=mintk4s6&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 117,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Prime Video", 
-    price: 2.24,
-    image: "https://www.dropbox.com/scl/fi/3kvv0x4f4v02c04bmxjqu/primevideo-seo-logo.png?rlkey=q9lrm9et68ki5dt0aooqr6suk&st=8qbx6uk1&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 118,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-    },
-    {
-    name: "Canva",
-    price: 1.30, 
-    image: "https://www.dropbox.com/scl/fi/ygial8c0y09cstwk3ukhk/images.jpeg?rlkey=bkv9n0jubirk03yxquyew8zbi&st=pl6j92cq&dl=1",
-    info: "✓ 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 119,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 0
-    },
-    {
-    name: "Disney", 
-    price: 2.00,
-    image: "https://www.dropbox.com/scl/fi/xqft1n1malmcekduny4ff/image002_8_d067e0e0.jpeg?rlkey=m41sc49hvprmjnixiq5ke1u7c&st=2oovzqvf&dl=1",
-    info: "✓ 1 Perfil - 1 Mes",
-    info1: "✓ 1 dispositivo",
-    renewal: 120,
-    bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
-      
-    }
-  ];
-  
- 
+<script src="catalogo.js"></script>
 
-  // Create product cards dynamically
-  const productGrid = document.getElementById("productGrid");
-
-  function createProductCard(product, index) {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.setAttribute("data-name", product.name.toLowerCase());
-
-    // product name badge
-    const nameTag = document.createElement("div");
-    nameTag.className = "product-name";
-    nameTag.textContent = product.name;
-    card.appendChild(nameTag);
-
-    // price yellow tag
-    const priceTag = document.createElement("div");
-    priceTag.className = "price-tag";
-    priceTag.textContent = `$/.${product.price.toFixed(2)}`;
-    card.appendChild(priceTag);
-
-    // image container and image
-    const imgContainer = document.createElement("div");
-    imgContainer.className = "image-container";
-    const img = document.createElement("img");
-    img.src = product.image;
-    img.alt = `${product.name} logo`;
-    imgContainer.appendChild(img);
-    card.appendChild(imgContainer);
-
-    // info text
-    const infoText = document.createElement("div");
-    infoText.className = "info-text";
-    infoText.textContent = product.info;
-    card.appendChild(infoText);
-
-const info1Text = document.createElement("div");
-info1Text.className = "info-text";
-info1Text.textContent = product.info1;
-card.appendChild(info1Text);
-
-
-
-    // Proveedor
-    const renewText = document.createElement("div");
-    renewText.className = "renewal";
-    renewText.textContent = `ID: ${product.renewal}`;
-    card.appendChild(renewText);
-
-const banderaText = document.createElement("div");
-banderaText.className = "info-text";
-banderaText.textContent = product.bandera;
-card.appendChild(banderaText);
-
-
-    // Button container and button
-    const btnContainer = document.createElement("div");
-    btnContainer.className = "btn-container";
-    const btn = document.createElement("button");
-    btn.type = "button";
-    if(product.stock > 0) {
-      btn.className = "buy-btn";
-      btn.textContent = "Comprar";
-      btn.addEventListener("click", () => openForm(product));
-    } else {
-      btn.className = "disabled-btn";
-      btn.textContent = "Agotado";
-      btn.disabled = true;
-    }
-    btnContainer.appendChild(btn);
-    card.appendChild(btnContainer);
-
-    return card;
-  }
-
-  function renderProducts(productsList) {
-    productGrid.innerHTML = "";
-    if(productsList.length === 0) {
-      productGrid.innerHTML = "<p style='text-align:center; color:#777;'>No products found.</p>";
-      return;
-    }
-    productsList.forEach((product, index) => {
-      productGrid.appendChild(createProductCard(product, index));
-    });
-  }
-
-  renderProducts(products);
-
-  // Search functionality real-time
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", (e) => {
-    const query = e.target.value.trim().toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-    
-    renderProducts(filtered);
-  });
-
-  // Dropdown toggle
-  const dropdown = document.getElementById("dropdownMenu");
-  const dropdownToggle = document.getElementById("dropdownToggle");
-
-  dropdownToggle.addEventListener("click", () => {
-    dropdown.classList.toggle("show");
-    const expanded = dropdownToggle.getAttribute("aria-expanded") === "true";
-    dropdownToggle.setAttribute("aria-expanded", String(!expanded));
-    if (!expanded) {
-      document.getElementById("dropdown-content").focus();
-    }
-  });
-
-  // Close dropdown if clicking outside
-  window.addEventListener("click", (e) => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove("show");
-      dropdownToggle.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  // Buy form modal logic
-  const buyModal = document.getElementById("buyModal");
-  const closeBtn = buyModal.querySelector(".close");
-  const purchaseForm = document.getElementById("purchaseForm");
-
-  function openForm(product) {
-    document.getElementById("productName").value = product.name;
-    document.getElementById("productInfo").value = product.info;
-    document.getElementById("productRenewal").value = product.renewal;
-    document.getElementById("productPrice").value = product.price.toFixed(2);
-    
-
-    buyModal.style.display = "block";
-    // Reset form fields
-    purchaseForm.reset();
-    // Focus first input (Name)
-    document.getElementById("customerName").focus();
-  }
-
-  // Close modal function
-  function closeForm() {
-    buyModal.style.display = "none";
-  }
-
-  closeBtn.addEventListener("click", closeForm);
-
-  // Close modal on Escape key
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && buyModal.style.display === "block") {
-      closeForm();
-    }
-  });
-
-  // Close modal when clicking outside modal-content
-  buyModal.addEventListener("click", (e) => {
-    if (e.target === buyModal) {
-      closeForm();
-    }
-  });
-
-  // Form submission handler
-  purchaseForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const productName = document.getElementById("productName").value;
-    const productInfo = document.getElementById("productInfo").value;
-    const productRenewal = document.getElementById("productRenewal").value;
-    const productPrice = document.getElementById("productPrice").value;
-    const customerName = document.getElementById("customerName").value.trim();
-    const whatsappNumber = document.getElementById("whatsappNumber").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const paymentMethod = document.getElementById("paymentMethod").value;
-
-    // Validate WhatsApp number format loosely (already pattern in input)
-    if (!customerName || !whatsappNumber || !email || !paymentMethod) {
-      alert("Please fill all required fields");
-      return;
-    }
-    
-
-    const encodedMessage = encodeURIComponent(
-      `Hola, estoy interesado en adquirir la plataforma:\n` +
-      `*Plataforma:* ${productName} ${productInfo}\n` +
-      `*ID:* ${productRenewal}\n` +
-      `*Nombre:* ${customerName}\n` +
-      `*Número de WhatsApp:* ${whatsappNumber}\n` +
-      `*Email:* ${email}\n` +
-      `*Método de pago:* ${paymentMethod}\n` +
-      `Por favor, envíeme los datos para el pago. ¡Gracias!`
-    );
-    const whatsappNumberTo = "5511966019490"; // Your WhatsApp number without plus, country code included
-    const whatsappUrl = `https://wa.me/${whatsappNumberTo}?text=${encodedMessage}`;
-    
-    // Open WhatsApp with message in new tab
-    window.open(whatsappUrl, "_blank");
-
-    closeForm();
-  });
-</script>
+<script src="script.js"></script>
 
 <script>
 
-// La lista a mostrar
-var tituloBs = "Métodos de pago: Bolivia 🇧🇴";
-var elemento1 = "Yape, Altoke";
-var elemento2 = "transferencia bancaria";
-var tituloBr = "Métodos de pago: Brasil 🇧🇷";
-var elemento3 = "Pix (QR 5 minutos)";
-var tituloEEUU = "Métodos de pago EEUU 🇺🇸";
-var elemento4 = "tranferencia bancaria ACH";
-var titulodivisas = "Otras divisas 🇨🇱🇧🇷🇧🇴🇪🇦🇱🇷🇵🇪🇳🇮";
-var elemento5 = "Binance";
-var elemento6 = "Airtm";
-var elemento7 = "PayPal";
-
-// ESTA ES LA PARTE CLAVE: Asegúrate de que los \n y los + estén correctos
-var listaCompleta =
-    tituloBs + "\n" +
-    "  - " + elemento1 + "\n" +
-    "  - " + elemento2 + "\n\n" + // Doble \n para espacio
-
-    tituloBr + "\n" +
-    "  - " + elemento3 + "\n\n" +
-
-    tituloEEUU + "\n" +
-    "  - " + elemento4 + "\n\n" +
-
-    titulodivisas + "\n" +
-    "  - " + elemento5 + "\n" +
-    "  - " + elemento6 + "\n" +
-    "  - " + elemento7;
-
-
-
-  window.addEventListener("load", function() {
-  document.getElementById("alerta").addEventListener("click", function() {
-    alert(listaCompleta);
-  })
-})
 
 </script>
 
@@ -1245,32 +235,7 @@ var listaCompleta =
     }
   }
 
-  function updateProductPrices(currency) {
-    const productCards = document.querySelectorAll(".card");
-    productCards.forEach(card => {
-      const productName = card.querySelector(".product-name").textContent;
-      const productData = products.find(p => p.name === productName.trim());
-      
-      if (productData) {
-        let convertedPrice;
-        switch (currency) {
-          case 'bs':
-            convertedPrice = (productData.price * exchangeRates['bs']).toFixed(2);
-            break;
-          case 'br':
-            convertedPrice = (productData.price * exchangeRates['br']).toFixed(2);
-            break;
-          case 'usdt':
-          case 'usd':
-          default:
-            convertedPrice = productData.price.toFixed(2);
-            break;
-        }
-        const priceTag = card.querySelector(".price-tag");
-        priceTag.textContent = `${currency === 'bs' ? 'Bs/.' : currency === 'br' ? 'R$' : '$'}${convertedPrice}`;
-      }
-    });
-  }
+  
 
   // Show the currency alert on page load
 </script>
@@ -1284,45 +249,6 @@ var listaCompleta =
 
   </div>
 </div>
-
-<style>
-.mass {
-  text-align: center;
-}
-.modal {
-  display: none; /* Oculta la ventana por defecto */
-  position: fixed;
-  z-index: 11;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover, .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
 
 
 <script>
@@ -1342,9 +268,11 @@ function showCurrencyModal() {
 }
 
 function selectCurrency(selectedOption) {
-    const currencyCode = currencyOptions[selectedOption].code;
-    updateProductPrices(currencyCode);
-    closeCurrencyModal();
+  const currencyCode = currencyOptions[selectedOption].code;
+  selectedCurrency = currencyCode;
+  localStorage.setItem('selectedCurrency', currencyCode);
+  renderPaginated();
+  closeCurrencyModal();
 }
 
 function closeCurrencyModal() {
@@ -1418,14 +346,18 @@ window.addEventListener("DOMContentLoaded",()=>{
     <!-- TIEMPO LIMITADO -->
     <h3 class="limited-title">🔥 Oferta por tiempo limitado 🔥</h3>
     <p class="limited-desc">1 plataforma — <strong>5% de descuento</strong></p>
+    <div class="countdown">
+      <span>01/11/2025  -   31/12/2025</span>
+    </div>
+
 
     <!-- Contador -->
-    <div class="countdown" id="countdown">
+    <!--<div class="countdown" id="countdown">
       <span id="days">25</span>d
       <span id="hours">00</span>h
       <span id="minutes">00</span>m
       <span id="seconds">00</span>s
-    </div>
+    </div> -->
 
     <button class="combo-close" id="comboClose">Cerrar</button>
 
@@ -1656,7 +588,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     <div class="footer-left">
       <h4>Contacto</h4>
       <p>WhatsApp: +55 11 96601-9490</p>
-      <p>Email: soporte@jackstreams.com</p>
+      <p>WhatsApp: +591 63614354</p>
     </div>
 
     <!-- Redes sociales (derecha) -->
