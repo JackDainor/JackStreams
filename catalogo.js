@@ -61,7 +61,7 @@ const products = [
     info1: "✓ 1 dispositivo",
     renewal: 201,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 0
+    stock: 1
   },
   {
     name: "Disney+",
@@ -141,7 +141,7 @@ const products = [
     info1: "",
     renewal: 111,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 0
+    stock: 1
   },
   {
     name: "Vix",
@@ -261,7 +261,7 @@ const products = [
   info1: "✓ 1 dispositivo",
   renewal: 208,
   bandera: "🇧🇴🇧🇷🇺🇸+",
-  stock: 0
+  stock: 1
 },
 {
   name: "Prime Video",
