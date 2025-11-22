@@ -141,7 +141,7 @@ const products = [
     info1: "",
     renewal: 111,
     bandera: "🇧🇴🇧🇷🇺🇸+",
-    stock: 1
+    stock: 0
   },
   {
     name: "Vix",

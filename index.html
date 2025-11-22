@@ -161,14 +161,16 @@
       <label for="paymentMethod">Método de pago *</label>
       <select id="paymentMethod" name="paymentMethod" required>
         <option value="" disabled selected>Selecciona el metodo de pago</option>
+        <option value="Tarjeta Crédito/Débito">Tarjeta Crédito/Débito</option>
         <option value="Yape Bolivia">Yape Bolivia</option>
-        <option value="Altoke">Altoke (Bolivia)</option>
+        <option value="Altoke">Altoke Bolivia</option>
         <option value="Transferencia bancaria">Transferencia bancaria (Bo)</option>
-        <option value="Pix">Pix (QR 5 minutos br)</option>
+        <option value="Pix">Pix (QR 5 minutos Br)</option>
         <option value="Transferencia bancaria ACH">Transferencia bancaria ACH</option>
         <option value="Binance">Binance</option>
-        <option value="Airtm">Airtm</option>
-        
+        <option value="Airtm">Airtm</option> 
+        <option value="El dorado">El dorado (Perú, argentina....)</option>
+       
       </select>
       
       <button type="submit">Enviar solicitud</button>
@@ -201,11 +203,13 @@
 </script>
 <h3 class="mass">seguiremos agregando mas plataformas de streaming y suscripciones</h3>
 
-<!-- VENTANA SELECTOR DIVISA -->
+<!-- <div></div>VENTANA SELECTOR DIVISA -->
 <script>
     // Tipo de cambio con respecto al dolar
   const exchangeRates = {
     'bs': 10.40,   // 1 USD = 13 BOB
+    'pen': 3.70,   // 1 USD = 3.80 Soles (ejemplo)
+    'ars': 1490,   // ejemplo: 1 USD = 970 ARS
     'usd': 1,   // 1 USD = 1 USD
     'br': 5.50,    // 1 USD = 6 BRL
     'usdt': 1   // 1 USDT = 1 USD
@@ -216,6 +220,9 @@
     2: { label: 'Dólar 💵 ($)', code: 'usd' },
     3: { label: 'Reales 🇧🇷 (R$)', code: 'br' },
     4: { label: 'USDT/USDC 💱', code: 'usdt' },
+    5: { label: 'Soles Peruanos 🇵🇪 (S/.)', code: 'pen' },
+    6: { label: 'Peso argentino 🇦🇷 (ARS)', code: 'ars' },
+
   };
 
   function showCurrencyAlert() {
