@@ -88,6 +88,16 @@ switch (selectedCurrency) {
     convertedPrice = (product.price * exchangeRates['br']).toFixed(2);
     priceTag.textContent = `R$${convertedPrice}`;
     break;
+  case 'pen':
+    convertedPrice = (product.price * exchangeRates['pen']).toFixed(2);
+priceTag.textContent = `S/.${convertedPrice}`;
+    break;
+  case 'ars':
+    convertedPrice = (product.price * exchangeRates['ars']).toFixed(2);
+priceTag.textContent = `ars.${convertedPrice}`;
+    break;
+
+
   case 'usdt':
     convertedPrice = product.price.toFixed(2);
     priceTag.textContent = `USDT ${convertedPrice}`;
